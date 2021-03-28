@@ -5,3 +5,4 @@ from django.views import View
 def MyView(request):
     return render(request, 'base.html',{})
 
+ 
