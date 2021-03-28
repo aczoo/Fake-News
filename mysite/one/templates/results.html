@@ -14,13 +14,8 @@
           <hr class="mt-0 mb-4">
           <h2>Fact Checker</h2>
           <div class="p-3">
-            <form method="POST">
-                {% csrf_token %}
-                <label for="text">Content </label>
-                <input class="form-control input-lg" id="text" type="text" name="text" value="">
-                <br>
-                <input type="submit" value="Submit">
-            </form>
+                Content: <h5> {{result}}</h5>              
+                <p>{{text}}</p>
           </div>
         </div>
       </div>
