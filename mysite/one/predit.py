@@ -6,6 +6,8 @@ import pandas as pd
 import re,string
 import nltk
 import string 
+import pickle
+
 from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -34,12 +36,15 @@ class myModel:
         news['text']=news['text'].apply(self.clean_text)
         nums = {"REAL":0,"FAKE":1}
         X_train, X_test, y_train, y_test = train_test_split(news["text"],[nums[x] for x in news["label"]], test_size=0.25, random_state=42)
-        self.vectorizer =TfidfVectorizer(stop_words='english', max_df=0.7)
+        self.vectorizer =TfidfVectorizer(stop_words='english')
         x_vector_train=self.vectorizer.fit_transform(X_train)
-        #x_vector_test = vectorizer.transform(X_test)
         pac=PassiveAggressiveClassifier(max_iter=50)
         pac.fit(x_vector_train,y_train)
         self.ourModel = pac
+        filename = 'model.sav'
+        pickle.dump(pac, open('model.sav', 'wb'))
+        pickle.dump(self.vectorizer, open('vectorizer.sav', 'wb'))
+
     def predict(self, text):
         vector = self.vectorizer.transform(text)
         value = self.ourModel.predict(vector)
