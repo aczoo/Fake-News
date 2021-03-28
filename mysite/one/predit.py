@@ -36,7 +36,7 @@ class myModel:
         news['text']=news['text'].apply(self.clean_text)
         nums = {"REAL":0,"FAKE":1}
         X_train, X_test, y_train, y_test = train_test_split(news["text"],[nums[x] for x in news["label"]], test_size=0.25, random_state=42)
-        self.vectorizer =TfidfVectorizer(stop_words='english')
+        self.vectorizer =TfidfVectorizer(stop_words='english', max_df=0.7)
         x_vector_train=self.vectorizer.fit_transform(X_train)
         pac=PassiveAggressiveClassifier(max_iter=50)
         pac.fit(x_vector_train,y_train)
