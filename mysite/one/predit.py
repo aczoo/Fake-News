@@ -19,7 +19,7 @@ def clean_text(text):
     return text
 def make_model():
     np.random.seed(42)
-    news = pd.read_csv('/news.csv', header=None)
+    news = pd.read_csv('static/news.csv', header=None)
     news.drop(news.columns[[0]], axis=1, inplace=True)
     columns = news.iloc[0]
     news = news[1:]
